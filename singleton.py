@@ -4,16 +4,16 @@ import calendar
 import threading
 
 
-class Singleton(object):
+class Singleton(type):
     _instances = {}
-
-    def __new__(cls, *args, **kwargs):
+    def __call__(cls, *args, **kwargs):
         if cls not in cls._instances:
-            cls._instances[cls] = super(Singleton, cls).__new__(cls, *args, **kwargs)
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
         return cls._instances[cls]
 
 
-class MyClass(Singleton):
+class MyClass(metaclass=Singleton):
+    pass
     now = datetime.datetime.now()
     ndj = int(calendar.monthrange(now.year, now.month)[1])
     depenseTransport = 0
@@ -69,8 +69,7 @@ class MyClass(Singleton):
                 self.depenseTransport = pickle.load(f)
                 f.close()
             except:
-                for i in range(1, self.jour):
-                    self.depenseTransport += self.transportBudget[i]
+                self.depenseTransport =0
 
             # initiation nourriture
             try:
@@ -86,8 +85,7 @@ class MyClass(Singleton):
                 self.depenseNourriture = pickle.load(f)
                 f.close()
             except:
-                for i in range(1, self.jour):
-                    self.depenseNourriture += self.nourritureBudget[i]
+                self.depenseNourriture =0
 
             # initiation loyer
             try:
@@ -103,8 +101,7 @@ class MyClass(Singleton):
                 self.depenseLoyer = pickle.load(f)
                 f.close()
             except:
-                for i in range(1, self.jour):
-                    self.depenseLoyer += self.loyerBudget[i]
+                self.depenseLoyer =0
             # initiation factures
             try:
                 f = open("C:/Users/user/Videos/python/gestionFinanciere/budget_factures.txt", "rb")
@@ -119,8 +116,7 @@ class MyClass(Singleton):
                 self.depenseFactures = pickle.load(f)
                 f.close()
             except:
-                for i in range(1, self.jour):
-                    self.depenseFactures += self.facturesBudget[i]
+                self.depenseFactures =0
             # initiation loisirs
             try:
                 f = open("C:/Users/user/Videos/python/gestionFinanciere/budget_loisirs.txt", "rb")
@@ -135,8 +131,7 @@ class MyClass(Singleton):
                 self.depenseLoisirs = pickle.load(f)
                 f.close()
             except:
-                for i in range(1, self.jour):
-                    self.depenseLoisirs += self.loisirsBudget[i]
+                self.depenseLoisirs =0
             # initiation entretien
             try:
                 f = open("C:/Users/user/Videos/python/gestionFinanciere/budget_entretien.txt", "rb")
@@ -151,8 +146,7 @@ class MyClass(Singleton):
                 self.depenseEntretien = pickle.load(f)
                 f.close()
             except:
-                for i in range(1, self.jour):
-                    self.depenseEntretien += self.entretienBudget[i]
+                self.depenseEntretien =0
             # initiation wifi
             try:
                 f = open("C:/Users/user/Videos/python/gestionFinanciere/budget_wifi.txt", "rb")
@@ -167,8 +161,7 @@ class MyClass(Singleton):
                 self.depenseWifi = pickle.load(f)
                 f.close()
             except:
-                for i in range(1, self.jour):
-                    self.depenseWifi += self.wifiBudget[i]
+                self.depenseWifi =0
             # initiation salle de sport
             try:
                 f = open("C:/Users/user/Videos/python/gestionFinanciere/budget_salle.txt", "rb")
@@ -183,8 +176,7 @@ class MyClass(Singleton):
                 self.depenseSalle = pickle.load(f)
                 f.close()
             except:
-                for i in range(1, self.jour):
-                    self.depenseSalle += self.salleBudget[i]
+                self.depenseSalle =0
             # initiation caprice
             try:
                 f = open("C:/Users/user/Videos/python/gestionFinanciere/budget_caprice.txt", "rb")
@@ -199,8 +191,7 @@ class MyClass(Singleton):
                 self.depenseCaprice = pickle.load(f)
                 f.close()
             except:
-                for i in range(1, self.jour):
-                    self.depenseCaprice += self.capriceBudget[i]
+                self.depenseCaprice =0
             # initiation autres
             try:
                 f = open("C:/Users/user/Videos/python/gestionFinanciere/budget_autres.txt", "rb")
@@ -215,8 +206,7 @@ class MyClass(Singleton):
                 self.depenseAutres = pickle.load(f)
                 f.close()
             except:
-                for i in range(1, self.jour):
-                    self.depenseAutres += self.autresBudget[i]
+                self.depenseAutres =0
 
 
         tInit = threading.Thread(target=setData)
@@ -469,4 +459,4 @@ class MyClass(Singleton):
         if value == "autres":
             return self.autresBudget
 
-    pass
+ 

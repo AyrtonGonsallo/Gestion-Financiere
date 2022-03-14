@@ -142,7 +142,6 @@ class Bilan(tk.Frame):
         def prop(n):
             return 360.0 * n / total
 
-        
         self.c.itemconfig("transport", start=prop(0),
                           extent=prop(montants[0]))
         self.c.itemconfig("loyer", start=prop(montants[0]),
@@ -277,6 +276,7 @@ class Transport(tk.Frame):
         self.axes.set_yticks(self.labely)
         self.restantLabel["text"] = "Montant restant: " + str(singleton.getMontants()[0] - singleton.depenseTransport)
         self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseTransport)
+        self.totalLabel["text"] = "Montant total: " + str(singleton.getMontants()[0])
         self.figure_canvas.draw()
         self.figure_canvas.get_tk_widget().grid(row=3, column=0, columnspan=5, padx=10, pady=10)
 
@@ -285,8 +285,8 @@ class Transport(tk.Frame):
         self.controller = controller
         label = ttk.Label(self, text="Transport", font=LARGEFONT)
         label.grid(row=0, column=0, padx=10, pady=10)
-        totalLabel = ttk.Label(self, text="total")
-        totalLabel.grid(row=0, column=1, padx=10, pady=10)
+        self.totalLabel = ttk.Label(self, text="total")
+        self.totalLabel.grid(row=0, column=1, padx=10, pady=10)
         self.restantLabel = ttk.Label(self, text="restant")
         self.restantLabel.grid(row=0, column=2, padx=10, pady=10)
         self.depenséLabel = ttk.Label(self, text="depensé")
@@ -312,7 +312,7 @@ class Transport(tk.Frame):
             self.data = singleton.getTransportB()
             self.jours = self.data.keys()
             self.montants = self.data.values()
-            totalLabel["text"] = "Montant total: " + str(montant)
+            self.totalLabel["text"] = "Montant total: " + str(montant)
             self.restantLabel["text"] = "Montant restant: " + str(montant - singleton.depenseTransport)
             self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseTransport)
             for y in range(1, singleton.ndj + 1):
@@ -409,6 +409,7 @@ class Loyer(tk.Frame):
         self.axes.set_yticks(self.labely)
         self.restantLabel["text"] = "Montant restant: " + str(singleton.getMontants()[1] - singleton.depenseLoyer)
         self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseLoyer)
+        self.totalLabel["text"] = "Montant total: " + str(singleton.getMontants()[1])
         self.figure_canvas.draw()
         self.figure_canvas.get_tk_widget().grid(row=3, column=0, columnspan=5, padx=10, pady=10)
 
@@ -417,8 +418,8 @@ class Loyer(tk.Frame):
         self.controller = controller
         label = ttk.Label(self, text="Loyer", font=LARGEFONT)
         label.grid(row=0, column=0, padx=10, pady=10)
-        totalLabel = ttk.Label(self, text="total")
-        totalLabel.grid(row=0, column=1, padx=10, pady=10)
+        self.totalLabel = ttk.Label(self, text="total")
+        self.totalLabel.grid(row=0, column=1, padx=10, pady=10)
         self.restantLabel = ttk.Label(self, text="restant")
         self.restantLabel.grid(row=0, column=2, padx=10, pady=10)
         self.depenséLabel = ttk.Label(self, text="depensé")
@@ -442,7 +443,7 @@ class Loyer(tk.Frame):
             self.data = singleton.getLoyerB()
             self.jours = self.data.keys()
             self.montants = self.data.values()
-            totalLabel["text"] = "Montant total: " + str(montant)
+            self.totalLabel["text"] = "Montant total: " + str(montant)
             self.restantLabel["text"] = "Montant restant: " + str(montant - singleton.depenseLoyer)
             self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseLoyer)
             for y in range(1, singleton.ndj + 1):
@@ -540,6 +541,7 @@ class Nourriture(tk.Frame):
         self.axes.set_yticks(self.labely)
         self.restantLabel["text"] = "Montant restant: " + str(singleton.getMontants()[2] - singleton.depenseNourriture)
         self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseNourriture)
+        self.totalLabel["text"] = "Montant total: " + str(singleton.getMontants()[2])
         self.figure_canvas.draw()
         self.figure_canvas.get_tk_widget().grid(row=3, column=0, columnspan=5, padx=10, pady=10)
 
@@ -548,8 +550,8 @@ class Nourriture(tk.Frame):
         self.controller = controller
         label = ttk.Label(self, text="Nourriture", font=LARGEFONT)
         label.grid(row=0, column=0, padx=10, pady=10)
-        totalLabel = ttk.Label(self, text="total")
-        totalLabel.grid(row=0, column=1, padx=10, pady=10)
+        self.totalLabel = ttk.Label(self, text="total")
+        self.totalLabel.grid(row=0, column=1, padx=10, pady=10)
         self.restantLabel = ttk.Label(self, text="restant")
         self.restantLabel.grid(row=0, column=2, padx=10, pady=10)
         self.depenséLabel = ttk.Label(self, text="depensé")
@@ -573,7 +575,7 @@ class Nourriture(tk.Frame):
             self.data = singleton.getNourritureB()
             self.jours = self.data.keys()
             self.montants = self.data.values()
-            totalLabel["text"] = "Montant total: " + str(montant)
+            self.totalLabel["text"] = "Montant total: " + str(montant)
             self.restantLabel["text"] = "Montant restant: " + str(montant - singleton.depenseNourriture)
             self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseNourriture)
             for y in range(1, singleton.ndj + 1):
@@ -670,6 +672,8 @@ class Facture(tk.Frame):
         self.axes.set_yticks(self.labely)
         self.restantLabel["text"] = "Montant restant: " + str(singleton.getMontants()[3] - singleton.depenseFactures)
         self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseFactures)
+        self.totalLabel["text"] = "Montant total: " + str(singleton.getMontants()[3])
+        self.totalLabel["text"] = "Montant total: " + str(singleton.getMontants()[3])
         self.figure_canvas.draw()
         self.figure_canvas.get_tk_widget().grid(row=3, column=0, columnspan=5, padx=10, pady=10)
 
@@ -678,8 +682,8 @@ class Facture(tk.Frame):
         self.controller = controller
         label = ttk.Label(self, text="Factures", font=LARGEFONT)
         label.grid(row=0, column=0, padx=10, pady=10)
-        totalLabel = ttk.Label(self, text="total")
-        totalLabel.grid(row=0, column=1, padx=10, pady=10)
+        self.totalLabel = ttk.Label(self, text="total")
+        self.totalLabel.grid(row=0, column=1, padx=10, pady=10)
         self.restantLabel = ttk.Label(self, text="restant")
         self.restantLabel.grid(row=0, column=2, padx=10, pady=10)
         self.depenséLabel = ttk.Label(self, text="depensé")
@@ -703,7 +707,7 @@ class Facture(tk.Frame):
             self.data = singleton.getFacturesB()
             self.jours = self.data.keys()
             self.montants = self.data.values()
-            totalLabel["text"] = "Montant total: " + str(montant)
+            self.totalLabel["text"] = "Montant total: " + str(montant)
             self.restantLabel["text"] = "Montant restant: " + str(montant - singleton.depenseFactures)
             self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseFactures)
             for y in range(1, singleton.ndj + 1):
@@ -798,6 +802,7 @@ class Loisirs(tk.Frame):
         self.axes.set_xlabel('Jour du mois')
         self.axes.set_xticks(self.labelx)
         self.axes.set_yticks(self.labely)
+        self.totalLabel["text"] = "Montant total: " + str(singleton.getMontants()[4])
         self.restantLabel["text"] = "Montant restant: " + str(singleton.getMontants()[4] - singleton.depenseLoisirs)
         self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseLoisirs)
         self.figure_canvas.draw()
@@ -808,8 +813,8 @@ class Loisirs(tk.Frame):
         self.controller = controller
         label = ttk.Label(self, text="Loisirs", font=LARGEFONT)
         label.grid(row=0, column=0, padx=10, pady=10)
-        totalLabel = ttk.Label(self, text="total")
-        totalLabel.grid(row=0, column=1, padx=10, pady=10)
+        self.totalLabel = ttk.Label(self, text="total")
+        self.totalLabel.grid(row=0, column=1, padx=10, pady=10)
         self.restantLabel = ttk.Label(self, text="restant")
         self.restantLabel.grid(row=0, column=2, padx=10, pady=10)
         self.depenséLabel = ttk.Label(self, text="depensé")
@@ -833,7 +838,7 @@ class Loisirs(tk.Frame):
             self.data = singleton.getLoisirsB()
             self.jours = self.data.keys()
             self.montants = self.data.values()
-            totalLabel["text"] = "Montant total: " + str(montant)
+            self.totalLabel["text"] = "Montant total: " + str(montant)
             self.restantLabel["text"] = "Montant restant: " + str(montant - singleton.depenseLoisirs)
             self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseLoisirs)
             for y in range(1, singleton.ndj + 1):
@@ -928,6 +933,7 @@ class Entretien(tk.Frame):
         self.axes.set_xlabel('Jour du mois')
         self.axes.set_xticks(self.labelx)
         self.axes.set_yticks(self.labely)
+        self.totalLabel["text"] = "Montant total: " + str(singleton.getMontants()[5])
         self.restantLabel["text"] = "Montant restant: " + str(singleton.getMontants()[5] - singleton.depenseEntretien)
         self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseEntretien)
         self.figure_canvas.draw()
@@ -938,8 +944,8 @@ class Entretien(tk.Frame):
         self.controller = controller
         label = ttk.Label(self, text="Entretien", font=LARGEFONT)
         label.grid(row=0, column=0, padx=10, pady=10)
-        totalLabel = ttk.Label(self, text="total")
-        totalLabel.grid(row=0, column=1, padx=10, pady=10)
+        self.totalLabel = ttk.Label(self, text="total")
+        self.totalLabel.grid(row=0, column=1, padx=10, pady=10)
         self.restantLabel = ttk.Label(self, text="restant")
         self.restantLabel.grid(row=0, column=2, padx=10, pady=10)
         self.depenséLabel = ttk.Label(self, text="depensé")
@@ -963,7 +969,7 @@ class Entretien(tk.Frame):
             self.data = singleton.getEntretienB()
             self.jours = self.data.keys()
             self.montants = self.data.values()
-            totalLabel["text"] = "Montant total: " + str(montant)
+            self.totalLabel["text"] = "Montant total: " + str(montant)
             self.restantLabel["text"] = "Montant restant: " + str(montant - singleton.depenseEntretien)
             self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseEntretien)
             for y in range(1, singleton.ndj + 1):
@@ -1058,6 +1064,7 @@ class Wifi(tk.Frame):
         self.axes.set_xlabel('Jour du mois')
         self.axes.set_xticks(self.labelx)
         self.axes.set_yticks(self.labely)
+        self.totalLabel["text"] = "Montant total: " + str(singleton.getMontants()[6])
         self.restantLabel["text"] = "Montant restant: " + str(singleton.getMontants()[6] - singleton.depenseWifi)
         self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseWifi)
         self.figure_canvas.draw()
@@ -1068,8 +1075,8 @@ class Wifi(tk.Frame):
         self.controller = controller
         label = ttk.Label(self, text="Wifi", font=LARGEFONT)
         label.grid(row=0, column=0, padx=10, pady=10)
-        totalLabel = ttk.Label(self, text="total")
-        totalLabel.grid(row=0, column=1, padx=10, pady=10)
+        self.totalLabel = ttk.Label(self, text="total")
+        self.totalLabel.grid(row=0, column=1, padx=10, pady=10)
         self.restantLabel = ttk.Label(self, text="restant")
         self.restantLabel.grid(row=0, column=2, padx=10, pady=10)
         self.depenséLabel = ttk.Label(self, text="depensé")
@@ -1093,7 +1100,7 @@ class Wifi(tk.Frame):
             self.data = singleton.getWifiB()
             self.jours = self.data.keys()
             self.montants = self.data.values()
-            totalLabel["text"] = "Montant total: " + str(montant)
+            self.totalLabel["text"] = "Montant total: " + str(montant)
             self.restantLabel["text"] = "Montant restant: " + str(montant - singleton.depenseWifi)
             self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseWifi)
             for y in range(1, singleton.ndj + 1):
@@ -1188,6 +1195,7 @@ class Salle(tk.Frame):
         self.axes.set_xlabel('Jour du mois')
         self.axes.set_xticks(self.labelx)
         self.axes.set_yticks(self.labely)
+        self.totalLabel["text"] = "Montant total: " + str(singleton.getMontants()[7])
         self.restantLabel["text"] = "Montant restant: " + str(singleton.getMontants()[7] - singleton.depenseSalle)
         self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseSalle)
         self.figure_canvas.draw()
@@ -1198,8 +1206,8 @@ class Salle(tk.Frame):
         self.controller = controller
         label = ttk.Label(self, text="Salle", font=LARGEFONT)
         label.grid(row=0, column=0, padx=10, pady=10)
-        totalLabel = ttk.Label(self, text="total")
-        totalLabel.grid(row=0, column=1, padx=10, pady=10)
+        self.totalLabel = ttk.Label(self, text="total")
+        self.totalLabel.grid(row=0, column=1, padx=10, pady=10)
         self.restantLabel = ttk.Label(self, text="restant")
         self.restantLabel.grid(row=0, column=2, padx=10, pady=10)
         self.depenséLabel = ttk.Label(self, text="depensé")
@@ -1223,7 +1231,7 @@ class Salle(tk.Frame):
             self.data = singleton.getSalleB()
             self.jours = self.data.keys()
             self.montants = self.data.values()
-            totalLabel["text"] = "Montant total: " + str(montant)
+            self.totalLabel["text"] = "Montant total: " + str(montant)
             self.restantLabel["text"] = "Montant restant: " + str(montant - singleton.depenseSalle)
             self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseSalle)
             for y in range(1, singleton.ndj + 1):
@@ -1318,6 +1326,7 @@ class Caprices(tk.Frame):
         self.axes.set_xlabel('Jour du mois')
         self.axes.set_xticks(self.labelx)
         self.axes.set_yticks(self.labely)
+        self.totalLabel["text"] = "Montant total: " + str(singleton.getMontants()[8])
         self.restantLabel["text"] = "Montant restant: " + str(singleton.getMontants()[8] - singleton.depenseCaprice)
         self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseCaprice)
         self.figure_canvas.draw()
@@ -1328,8 +1337,8 @@ class Caprices(tk.Frame):
         self.controller = controller
         label = ttk.Label(self, text="Caprice", font=LARGEFONT)
         label.grid(row=0, column=0, padx=10, pady=10)
-        totalLabel = ttk.Label(self, text="total")
-        totalLabel.grid(row=0, column=1, padx=10, pady=10)
+        self.totalLabel = ttk.Label(self, text="total")
+        self.totalLabel.grid(row=0, column=1, padx=10, pady=10)
         self.restantLabel = ttk.Label(self, text="restant")
         self.restantLabel.grid(row=0, column=2, padx=10, pady=10)
         self.depenséLabel = ttk.Label(self, text="depensé")
@@ -1353,7 +1362,7 @@ class Caprices(tk.Frame):
             self.data = singleton.getCapriceB()
             self.jours = self.data.keys()
             self.montants = self.data.values()
-            totalLabel["text"] = "Montant total: " + str(montant)
+            self.totalLabel["text"] = "Montant total: " + str(montant)
             self.restantLabel["text"] = "Montant restant: " + str(montant - singleton.depenseCaprice)
             self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseCaprice)
             for y in range(1, singleton.ndj + 1):
@@ -1448,6 +1457,7 @@ class Autres(tk.Frame):
         self.axes.set_xlabel('Jour du mois')
         self.axes.set_xticks(self.labelx)
         self.axes.set_yticks(self.labely)
+        self.totalLabel["text"] = "Montant total: " + str(singleton.getMontants()[9])
         self.restantLabel["text"] = "Montant restant: " + str(singleton.getMontants()[9] - singleton.depenseAutres)
         self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseAutres)
         self.figure_canvas.draw()
@@ -1458,8 +1468,8 @@ class Autres(tk.Frame):
         self.controller = controller
         label = ttk.Label(self, text="Autres", font=LARGEFONT)
         label.grid(row=0, column=0, padx=10, pady=10)
-        totalLabel = ttk.Label(self, text="total")
-        totalLabel.grid(row=0, column=1, padx=10, pady=10)
+        self.totalLabel = ttk.Label(self, text="total")
+        self.totalLabel.grid(row=0, column=1, padx=10, pady=10)
         self.restantLabel = ttk.Label(self, text="restant")
         self.restantLabel.grid(row=0, column=2, padx=10, pady=10)
         self.depenséLabel = ttk.Label(self, text="depensé")
@@ -1483,7 +1493,7 @@ class Autres(tk.Frame):
             self.data = singleton.getAutresB()
             self.jours = self.data.keys()
             self.montants = self.data.values()
-            totalLabel["text"] = "Montant total: " + str(montant)
+            self.totalLabel["text"] = "Montant total: " + str(montant)
             self.restantLabel["text"] = "Montant restant: " + str(montant - singleton.depenseAutres)
             self.depenséLabel["text"] = "Montant depensé: " + str(singleton.depenseAutres)
             for y in range(1, singleton.ndj + 1):
@@ -1582,7 +1592,10 @@ class ParametresRepartition(tk.Frame):
         def effacer():
             for i in range(1, len(entries) + 1):
                 entries[i - 1].delete(0, tk.END)
+            emtotal.delete(0, tk.END)
             button3["state"] = tk.DISABLED
+            button4['state'] = tk.DISABLED
+            button5['state'] = tk.DISABLED
 
         def load():
             self.data = {}
@@ -1593,6 +1606,29 @@ class ParametresRepartition(tk.Frame):
             for i in range(1, len(entries) + 1):
                 entries[i - 1].insert(tk.END, str(self.data[i]))
             button3['state'] = tk.NORMAL
+            button4['state'] = tk.NORMAL
+            button5['state'] = tk.NORMAL
+            m = singleton.getMontants()
+            if value == "transport":
+                emtotal.insert(tk.END, str(m[0]))
+            if value == "loyer":
+                emtotal.insert(tk.END, str(m[1]))
+            if value == "nourriture":
+                emtotal.insert(tk.END, str(m[2]))
+            if value == "facture":
+                emtotal.insert(tk.END, str(m[3]))
+            if value == "loisirs":
+                emtotal.insert(tk.END, str(m[4]))
+            if value == "entretien":
+                emtotal.insert(tk.END, str(m[5]))
+            if value == "wifi":
+                emtotal.insert(tk.END, str(m[6]))
+            if value == "salle de sport":
+                emtotal.insert(tk.END, str(m[7]))
+            if value == "caprices et coups de tete":
+                emtotal.insert(tk.END, str(m[8]))
+            if value == "autres":
+                emtotal.insert(tk.END, str(m[9]))
 
         # code ------------------------------------
         tk.Label(self, text="Type :", font=myFont).grid(row=1, column=0)
@@ -1602,7 +1638,7 @@ class ParametresRepartition(tk.Frame):
                                           "salle de sport", "caprices et coups de tete", "autres"
                                           ])
         type.grid(row=1, column=1)
-        button1 = tk.Button(self, text="Charger données", bg='#005100', fg='#ffffff', cursor="hand1",
+        button1 = tk.Button(self, text="Charger", bg='#005100', fg='#ffffff', cursor="hand1",
                             command=load)
         button1['font'] = myFont
         button1.grid(row=1, column=2, padx=10, pady=10)
@@ -1634,77 +1670,76 @@ class ParametresRepartition(tk.Frame):
             entries.append(etr)
 
         def save():
-
             value = type.get()
             if value == "transport":
                 f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_transport_depense.txt", "wb")
                 pickle.dump(singleton.depenseTransport, f2)
                 f2.close()
                 saveinfile("C:/Users/user/Videos/python/gestionFinanciere/budget_transport.txt")
-                singleton.updateTransportDepense()
+                # singleton.updateTransportDepense()
                 self.controller.get_page(Transport).update()
             if value == "loyer":
                 f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_loyer_depense.txt", "wb")
                 pickle.dump(singleton.depenseLoyer, f2)
                 f2.close()
                 saveinfile("C:/Users/user/Videos/python/gestionFinanciere/budget_loyer.txt")
-                singleton.updateLoyerDepense()
+                # singleton.updateLoyerDepense()
                 self.controller.get_page(Loyer).update()
             if value == "nourriture":
                 f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_nourriture_depense.txt", "wb")
                 pickle.dump(singleton.depenseNourriture, f2)
                 f2.close()
                 saveinfile("C:/Users/user/Videos/python/gestionFinanciere/budget_nourriture.txt")
-                singleton.updateNourritureDepense()
+                # singleton.updateNourritureDepense()
                 self.controller.get_page(Nourriture).update()
             if value == "facture":
                 f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_factures_depense.txt", "wb")
                 pickle.dump(singleton.depenseFacture, f2)
                 f2.close()
                 saveinfile("C:/Users/user/Videos/python/gestionFinanciere/budget_factures.txt")
-                singleton.updateFactureDepense()
+                # singleton.updateFactureDepense()
                 self.controller.get_page(Facture).update()
             if value == "loisirs":
                 f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_loisirs_depense.txt", "wb")
                 pickle.dump(singleton.depenseLoisirs, f2)
                 f2.close()
                 saveinfile("C:/Users/user/Videos/python/gestionFinanciere/budget_loisirs.txt")
-                singleton.updateLoisirsDepense()
+                # singleton.updateLoisirsDepense()
                 self.controller.get_page(Loisirs).update()
             if value == "entretien":
                 f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_entretien_depense.txt", "wb")
                 pickle.dump(singleton.depenseEntretien, f2)
                 f2.close()
                 saveinfile("C:/Users/user/Videos/python/gestionFinanciere/budget_entretien.txt")
-                singleton.updateEntretienDepense()
+                # singleton.updateEntretienDepense()
                 self.controller.get_page(Entretien).update()
             if value == "wifi":
                 f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_wifi_depense.txt", "wb")
                 pickle.dump(singleton.depenseWifi, f2)
                 f2.close()
                 saveinfile("C:/Users/user/Videos/python/gestionFinanciere/budget_wifi.txt")
-                singleton.updateWifiDepense()
+                # singleton.updateWifiDepense()
                 self.controller.get_page(Wifi).update()
             if value == "salle de sport":
                 f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_salle_depense.txt", "wb")
                 pickle.dump(singleton.depenseSalle, f2)
                 f2.close()
                 saveinfile("C:/Users/user/Videos/python/gestionFinanciere/budget_salle.txt")
-                singleton.updateSalleDepense()
+                # singleton.updateSalleDepense()
                 self.controller.get_page(Salle).update()
             if value == "caprices et coups de tete":
                 f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_caprice_depense.txt", "wb")
                 pickle.dump(singleton.depenseCaprice, f2)
                 f2.close()
                 saveinfile("C:/Users/user/Videos/python/gestionFinanciere/budget_caprice.txt")
-                singleton.updateCapriceDepense()
+                # singleton.updateCapriceDepense()
                 self.controller.get_page(Caprices).update()
             if value == "autres":
                 f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_autres_depense.txt", "wb")
                 pickle.dump(singleton.depenseAutres, f2)
                 f2.close()
                 saveinfile("C:/Users/user/Videos/python/gestionFinanciere/budget_autres.txt")
-                singleton.updateAutreDepense()
+                # singleton.updateAutreDepense()
                 self.controller.get_page(Autres).update()
             messagebox.showinfo("Sauvegarde", "Configuration " + value + " journaliere enregistrée !")
 
@@ -1715,10 +1750,141 @@ class ParametresRepartition(tk.Frame):
             pickle.dump(self.data, f)
             f.close()
 
+        def zero():
+            for i in range(1, len(entries) + 1):
+                entries[i - 1].delete(0, tk.END)
+            for i2 in range(1, len(entries) + 1):
+                entries[i2 - 1].insert(tk.END, str(0.0))
+
+        def setDepense():
+            value = type.get()
+            if value == "transport":
+                singleton.depenseTransport = float(emdep.get())
+                f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_transport_depense.txt", "wb")
+                pickle.dump(singleton.depenseTransport, f2)
+                f2.close()
+                self.controller.get_page(Transport).update()
+            if value == "loyer":
+                singleton.depenseLoyer = float(emdep.get())
+                f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_loyer_depense.txt", "wb")
+                pickle.dump(singleton.depenseLoyer, f2)
+                f2.close()
+                self.controller.get_page(Loyer).update()
+
+            if value == "nourriture":
+                singleton.depenseNourriture = float(emdep.get())
+                f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_nourriture_depense.txt", "wb")
+                pickle.dump(singleton.depenseNourriture, f2)
+                f2.close()
+                self.controller.get_page(Nourriture).update()
+
+            if value == "facture":
+                singleton.depenseFactures = float(emdep.get())
+                f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_factures_depense.txt", "wb")
+                pickle.dump(singleton.depenseFacture, f2)
+                f2.close()
+                self.controller.get_page(Facture).update()
+
+            if value == "loisirs":
+                singleton.depenseLoisirs = float(emdep.get())
+                f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_loisirs_depense.txt", "wb")
+                pickle.dump(singleton.depenseLoisirs, f2)
+                f2.close()
+                self.controller.get_page(Loisirs).update()
+
+            if value == "entretien":
+                singleton.depenseEntretien = float(emdep.get())
+                f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_entretien_depense.txt", "wb")
+                pickle.dump(singleton.depenseEntretien, f2)
+                f2.close()
+                self.controller.get_page(Entretien).update()
+
+            if value == "wifi":
+                singleton.depenseWifi = float(emdep.get())
+                f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_wifi_depense.txt", "wb")
+                pickle.dump(singleton.depenseWifi, f2)
+                f2.close()
+                self.controller.get_page(Wifi).update()
+
+            if value == "salle de sport":
+                singleton.depenseSalle = float(emdep.get())
+                f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_salle_depense.txt", "wb")
+                pickle.dump(singleton.depenseSalle, f2)
+                f2.close()
+                self.controller.get_page(Salle).update()
+
+            if value == "caprices et coups de tete":
+                singleton.depenseCaprice = float(emdep.get())
+                f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_caprice_depense.txt", "wb")
+                pickle.dump(singleton.depenseCaprice, f2)
+                f2.close()
+                self.controller.get_page(Caprices).update()
+
+            if value == "autres":
+                singleton.depenseAutres = float(emdep.get())
+                f2 = open("C:/Users/user/Videos/python/gestionFinanciere/budget_autres_depense.txt", "wb")
+                pickle.dump(singleton.depenseAutres, f2)
+                f2.close()
+                self.controller.get_page(Autres).update()
+
+            messagebox.showinfo("Sauvegarde", "Dépense " + value + " enregistrée !")
+
+        def calculer():
+            res = float(emtotal.get()) / float(ejres.get())
+            evalue.insert(tk.END, str(res))
+
+        def remplir():
+            deb = int(edeb.get())
+            fin = int(efin.get())
+            value = float(evalue.get())
+            for i2 in range(deb, (fin + 1)):
+                entries[i2 - 1].delete(0, tk.END)
+                entries[i2 - 1].insert(tk.END, str(value))
+
+        tk.Label(self, text="dépensé :", font=myFont).grid(row=11, column=0)
+        emdep = tk.Entry(self, width=30)
+        emdep.grid(row=11, column=1)
+
+        tk.Label(self, text="total :", font=myFont).grid(row=13, column=0)
+        emtotal = tk.Entry(self, width=30)
+        emtotal.grid(row=13, column=1)
+        tk.Label(self, text="J restants :", font=myFont).grid(row=13, column=3)
+        ejres = tk.Entry(self, width=30)
+        ejres.grid(row=13, column=4)
+        tk.Label(self, text="valeur :", font=myFont).grid(row=13, column=5)
+        evalue = tk.Entry(self, width=30)
+        evalue.grid(row=13, column=6)
+        jres = singleton.ndj - singleton.getJour() + 1
+        ejres.insert(tk.END, str(jres))
+        button33 = tk.Button(self, text="Calculer", bg='#005100', fg='#ffffff', cursor="hand1",
+                             command=calculer)
+        button33['font'] = myFont
+        button33.grid(row=15, column=0, padx=10, pady=10)
+        tk.Label(self, text="De :", font=myFont).grid(row=16, column=0)
+        edeb = tk.Entry(self, width=30)
+        edeb.grid(row=16, column=1)
+        edeb.insert(tk.END,str(singleton.jour))
+        tk.Label(self, text="A :", font=myFont).grid(row=17, column=0)
+        efin = tk.Entry(self, width=30)
+        efin.grid(row=17, column=1)
+        efin.insert(tk.END,str(singleton.ndj))
+        button34 = tk.Button(self, text="Remplir", bg='#00ff00', fg='#ffffff', cursor="hand1",
+                             command=remplir)
+        button34['font'] = myFont
+        button34.grid(row=18, column=0, padx=10, pady=10)
         button3 = tk.Button(self, text="Enregistrer", bg='#0051ff', fg='#ffffff', cursor="hand1", state=tk.DISABLED,
                             command=save)
         button3['font'] = myFont
-        button3.grid(row=11, column=0, padx=10, pady=10)
+        button3.grid(row=19, column=0, padx=10, pady=10)
+        button4 = tk.Button(self, text="Mettre a zero", bg='#ff0000', fg='#ffffff', cursor="hand1", state=tk.DISABLED,
+                            command=zero)
+        button4['font'] = myFont
+        button4.grid(row=19, column=1, padx=10, pady=10)
+        button5 = tk.Button(self, text="Dépense", bg='#aa0000', fg='#ffffff', cursor="hand1", state=tk.DISABLED,
+                            command=setDepense)
+        button5['font'] = myFont
+        button5.grid(row=19, column=2, padx=10, pady=10)
+
 
 
 class Parametres(tk.Frame):
@@ -1790,6 +1956,16 @@ class Parametres(tk.Frame):
             pickle.dump(singleton.getMontants(), f)
             f.close()
             self.controller.get_page(Bilan).update()
+            self.controller.get_page(Transport).update()
+            self.controller.get_page(Loyer).update()
+            self.controller.get_page(Nourriture).update()
+            self.controller.get_page(Facture).update()
+            self.controller.get_page(Loisirs).update()
+            self.controller.get_page(Entretien).update()
+            self.controller.get_page(Wifi).update()
+            self.controller.get_page(Salle).update()
+            self.controller.get_page(Caprices).update()
+            self.controller.get_page(Autres).update()
 
         button5 = tk.Button(self, text="Enregistrer", bg='#0051ff', fg='#ffffff',
                             command=save)
